@@ -36,4 +36,5 @@
             @endforeach
         </tbody>
     </table>
+    <a type="button" class="btn btn-primary btn-lg" href="{{url('../public')}}">DASHBOARD</a>
 @endsection

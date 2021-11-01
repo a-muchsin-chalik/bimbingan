@@ -17,7 +17,9 @@ class jadwalController extends Controller
     public function index()
     {
         $dataJadwal = jadwal::all();
-        return view ('jadwal.index', compact('dataJadwal'));
+        $dataMahasiswa = mahasiswa::all();
+        $dataDosen = dosen::all();
+        return view ('jadwal.index', compact('dataJadwal', 'dataMahasiswa', 'dataDosen'));
     }
 
     /**
@@ -39,26 +41,23 @@ class jadwalController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request, $id)
+    public function store(Request $request)
     {
+
         $dataJadwal = new jadwal;
-        $dataDosen = new dosen;
+        $dataMahasiswa = mahasiswa::find($id = $request->mahasiswa_id);
+        $dataDosen = dosen::find($id = $request->dosen_id);
 
-        $dataMahasiswa->id = $request->mahasiswa_id;
-        $dataMahasiswa = mahasiswa::find($id);
-        $dataDosen->id = $request->dosen_id;
+        // return ($dataMahasiswa->nama);
+        $dataJadwal->mahasiswa_id = $dataMahasiswa->id;
+        $dataJadwal->dosen_id = $dataDosen->id;
+        $dataJadwal->judul = $request->judul;
+        $dataJadwal->deskripsi = $request->deskripsi;
+        $dataJadwal->awal = $request->awal;
+        $dataJadwal->akhir = $request->akhir;
+        $dataJadwal->save();
 
-        return ($dataMahasiswa->nama);
-
-        // $dataJadwal->mahasiswa_id = $dataMahasiswa->nama;
-        // $dataJadwal->dosen_id = $dataDosen->nama;
-        // $dataJadwal->judul = $request->judul;
-        // $dataJadwal->deskripsi = $request->deskripsi;
-        // $dataJadwal->awal = $request->awal;
-        // $dataJadwal->akhir = $request->akhir;
-        
-        // $dataJadwal->save();
-        // return redirect('jadwal');
+        return redirect('jadwal');
     }
 
     /**
@@ -69,7 +68,8 @@ class jadwalController extends Controller
      */
     public function show($id)
     {
-        //
+        $model = jadwal::find($id);
+        return view ('jadwal.show', compact('model'));
     }
 
     /**
@@ -80,7 +80,8 @@ class jadwalController extends Controller
      */
     public function edit($id)
     {
-        //
+        $model = jadwal::find($id); 
+        return view('jadwal.edit', compact('model'));
     }
 
     /**
@@ -92,7 +93,16 @@ class jadwalController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $model = jadwal::find($id);
+        $model->mahasiswa_id = $model->mahasiswa_id;
+        $model->dosen_id = $model->dosen_id;
+        $model->judul = $model->judul;
+        $model->deskripsi = $model->deskripsi;
+        $model->awal = $request->awal;
+        $model->akhir = $request->akhir;
+        $model->save();
+
+        return redirect('jadwal');
     }
 
     /**
@@ -103,6 +113,8 @@ class jadwalController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $model = jadwal::find($id);
+        $model->delete();
+        return redirect('jadwal');
     }
 }

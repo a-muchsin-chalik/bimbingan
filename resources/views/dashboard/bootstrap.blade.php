@@ -12,7 +12,7 @@
   </head>
   <body>
     <div class="container">
-      <h1>Hello, world!</h1>
+      <h1>BIMBINGAN</h1>
       
       <!-- agar bisa dipanggil -->
       @yield('content')

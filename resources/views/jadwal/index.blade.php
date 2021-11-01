@@ -11,8 +11,8 @@
             <th scope="col">DOSEN</th>
             <th scope="col">JUDUL</th>
             <th scope="col">DESKRIPSI</th>
-            <th scope="col">AWAL</th>
-            <th scope="col">AKHIR</th>
+            <th scope="col">ACTION</th>
+            <th scope="col">DELETE</th>
             </tr>
         </thead>
         <tbody>
@@ -23,13 +23,11 @@
                 <td>{{$value->dosen_id}}</td>
                 <td>{{$value->judul}}</td>
                 <td>{{$value->deskripsi}}</td>
-                <td>{{$value->awal}}</td>
-                <td>{{$value->akhir}}</td>
 
                 <td>
-                    <a class="btn btn-info" href="{{url('jadwal/'.$value->id)}}">SHOW</a>
+                    <a class="btn btn-info" href="{{url('jadwal/'.$value->id)}}">DETAIL</a>
 
-                    <a class="btn btn-info" href="{{url('jadwal/'.$value->id.'/edit')}}">EDIT</a>
+                    <a class="btn btn-info" href="{{url('jadwal/'.$value->id.'/edit')}}">UBAH</a>
                 </td>
                 <td>
                     <form action="{{url('jadwal/'.$value->id)}}" method="POST">
@@ -43,4 +41,5 @@
             @endforeach
         </tbody>
     </table>
+    <a type="button" class="btn btn-primary btn-lg" href="{{url('../public')}}">DASHBOARD</a>
 @endsection
